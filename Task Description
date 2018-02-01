@@ -1,0 +1,9 @@
+Round
+
+while failed_attempts <= 7:
+  
+
+specify number of rounds (7)
+while loop turns > 0
+if guess == < 0 then - rounds
+if guess > 7 == fail
