@@ -1,0 +1,37 @@
+#an example word
+word1 = "hello"
+#writes out underscores in place of each letter
+word_lines = ["_ "] * len(word1)
+print(word_lines)
+
+#checks if guess is in word to tell if hangman should be created
+#this is the first version of a function that is overcomplex and redundant. I changed this to do if guess in word syntax
+def check_guess(guess, word):
+  num_of_times = 0
+  if guess in word:
+  for letter in word:
+    if guess == letter:
+      num_of_times += 1
+  if num_of_times > 0:
+        return True
+        
+  else:
+  return False
+
+#finds guess placement in list and returns word placement to allow word lines to be replaced with correctly guessed letters
+def word_placement(word, guess):
+  placement = []
+  for index in range(len(word)):
+    if guess == word[index]:
+      placement.append(index)
+  return placement
+  
+#changes word_lines to include correctly guessed letters
+def word_reveal(word, lines, guess):
+  for placement in word_placement(word, guess):
+    lines[placement] = word[placement]
+  
+#testing out functions
+print(check_guess("e", word1))
+word_reveal(word1, word_lines, "e")
+print(word_lines)
