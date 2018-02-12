@@ -1,0 +1,107 @@
+#Start Code: Wenxin on dictionary, benji user input and verification, madison on round, benji on list work
+
+import random
+
+#words = ["hello", "python", "program", "love", "save", "exercise", 
+#"funny", "trust", "respect", "start"]
+
+words = ["hello"]
+
+def choice():
+    return random.choice(words)
+word1 = choice()
+print(word1)
+
+#writes out underscores in place of each letter
+word_lines = ["_ "] * len(word1)
+print(" ".join(word_lines))
+
+
+#Check user input and return it if valid
+
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+def is_letter(user_input):
+    if user_input in alphabet:
+        return True
+    else:
+	    return False
+    
+def get_guess():
+    guess = input("Type in a one letter guess: ")
+    while is_letter(guess) == False:
+        guess = input("whoops, that wasn't a letter, please type another: " )
+    else:
+        print(guess)
+        return guess
+
+user_guess = get_guess()
+
+
+#checks if guess is in word to tell if hangman should be created
+def check_guess(guess, word):
+  if guess in word:
+    return True
+  else:
+    return False
+
+#finds guess placement in list and returns word placement to allow word lines to be replaced with correctly guessed letters
+def word_placement(word, guess):
+  placement = []
+  for index in range(len(word)):
+    if guess == word[index]:
+      placement.append(index)
+  return placement
+  
+#changes word_lines to include correctly guessed letters
+def word_reveal(word, lines, guess):
+  for placement in word_placement(word, guess):
+    lines[placement] = word[placement]
+
+row1 = ['____________']
+row2 = ['|           ']
+row3 = ['|           ']
+row4 = ['|          ']
+row5 = ['|          ']
+row6 = ['|         ']
+
+struct = [row1, row2, row3, row4, row5, row6]
+
+draw1 = ['|']
+draw2 = ['O']
+draw3 = ["/|V"]
+draw4 = ['|']
+draw5 = ["/ |"]
+drawing = [draw1, draw2, draw3, draw4, draw5]
+
+def draw_hangman(round):
+  struct[round + 1].append(drawing[round])
+  return struct
+
+# Madison below  
+
+round = int(1)
+while round < 6:
+
+    if is_letter(user_guess) == True:
+       round = round + 1
+       print (round)
+       draw_hangman(round)    
+    else:
+        print ("You guessed a correct letter")
+
+    for i in range(10):
+      user_guess = get_guess()
+      print(check_guess(user_guess, word1))
+      word_reveal(word1, word_lines, user_guess)
+
+      #print out hangman
+      for row in draw_hangman(i):
+        print(row)
+      print(" ".join(word_lines))
+
+    print(check_guess(user_guess, word1))
+    word_reveal(word1, word_lines, user_guess)
+    print(" ".join(word_lines))
+    break
+
+# Madison above
