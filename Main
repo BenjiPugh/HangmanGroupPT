@@ -97,7 +97,9 @@ while round < 5:
       print(" ".join(word_lines))
     else:
         print(("You guessed a correct letter"))
-        print("round: " + str(round))
+        for row in struct:
+            print(row)
+        print("round: " + str(round + 1))
         print(" ".join(word_lines))
 
 #User wins if all the letters are guessed correctly in 5 rounds. If not, game over.
@@ -109,5 +111,6 @@ while round < 5:
       break
 else:
   print("Game Over")
+  print(word1)
 
 # Madison above /\
